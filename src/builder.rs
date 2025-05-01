@@ -82,6 +82,8 @@ impl<R: Resource + Serialize + DeserializeOwned> PersistentBuilder<R> {
         feature = "yaml",
     ))]
     pub fn build(self) -> Result<Persistent<R>, PersistenceError> {
+        use std::path::Path;
+
         if self.name.is_none() {
             panic!("persistent resource name is not set");
         }
@@ -107,7 +109,12 @@ impl<R: Resource + Serialize + DeserializeOwned> PersistentBuilder<R> {
         let storage = {
             #[cfg(not(target_family = "wasm"))]
             {
-                Storage::Filesystem { path: path.canonicalize().unwrap_or(path) }
+                Storage::Filesystem {
+                    path: {
+                        let new_path = Path::new(&path);
+                        new_path.canonicalize().unwrap_or(path).to_string_lossy().to_string()
+                    },
+                }
             }
             #[cfg(target_family = "wasm")]
             {

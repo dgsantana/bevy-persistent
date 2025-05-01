@@ -14,7 +14,7 @@ mod native {
         assert!(!tempdir.path().join("some").join("dirs").exists());
         assert!(!tempdir.path().join("some").join("dirs").join("key-bindings.toml").exists());
 
-        let storage = Storage::Filesystem { path };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
 
         storage.initialize()?;
 
@@ -29,7 +29,7 @@ mod native {
     fn filesystem_occupied() -> anyhow::Result<()> {
         let tempdir = tempfile::tempdir()?;
         let path = tempdir.path().join("key-bindings.toml");
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
 
         assert!(!path.exists());
         assert!(!storage.occupied());
@@ -46,7 +46,7 @@ mod native {
     fn filesystem_display() -> anyhow::Result<()> {
         let tempdir = tempfile::tempdir()?;
         let path = tempdir.path().join("key-bindings.toml");
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
 
         assert_eq!(format!("{}", storage), format!("{}", path.to_str().unwrap()));
 

@@ -62,7 +62,7 @@ fn on_window_moved(
     window_state: ResMut<Persistent<WindowState>>,
 ) {
     if !events.is_empty() {
-        update_window_state(window_state, windows.single());
+        update_window_state(window_state, windows.single().expect("no window found"));
     }
 }
 
@@ -72,7 +72,7 @@ fn on_window_resized(
     window_state: ResMut<Persistent<WindowState>>,
 ) {
     if !events.is_empty() {
-        update_window_state(window_state, windows.single());
+        update_window_state(window_state, windows.single().expect("no window found"));
     }
 }
 

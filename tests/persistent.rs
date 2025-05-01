@@ -13,7 +13,7 @@ mod native {
 
         let name = "key bindings";
         let format = StorageFormat::Toml;
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
         let loaded = true;
         let default = KeyBindings::default();
         let revertible = false;
@@ -54,7 +54,7 @@ mod native {
 
         let name = "key bindings";
         let format = StorageFormat::Toml;
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
         let loaded = true;
         let default = KeyBindings::default();
         let revertible = false;
@@ -97,7 +97,7 @@ mod native {
 
         let name = "key bindings";
         let format = StorageFormat::Toml;
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
         let loaded = true;
         let default = KeyBindings::default();
         let revertible = false;
@@ -151,7 +151,7 @@ mod native {
 
         let name = "key bindings";
         let format = StorageFormat::Toml;
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
         let loaded = true;
         let default = KeyBindings::default();
         let revertible = false;
@@ -210,7 +210,7 @@ mod native {
 
         let name = "key bindings";
         let format = StorageFormat::Toml;
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
         let loaded = true;
         let default = KeyBindings::default();
         let revertible = false;
@@ -276,7 +276,7 @@ mod native {
 
         let name = "key bindings";
         let format = StorageFormat::Toml;
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
         let loaded = true;
         let default = KeyBindings::default();
         let revertible = false;
@@ -353,7 +353,7 @@ mod native {
 
         let name = "key bindings";
         let format = StorageFormat::Toml;
-        let storage = Storage::Filesystem { path: path.clone() };
+        let storage = Storage::Filesystem { path: path.to_string_lossy().to_string() };
         let loaded = true;
         let default = KeyBindings::default();
         let revertible = true;

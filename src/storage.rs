@@ -1,12 +1,14 @@
 //! A storage.
 
+use std::path::Path;
+
 use crate::prelude::*;
 
 /// A storage.
 #[derive(Clone, Debug, Eq, PartialEq, Reflect)]
 pub enum Storage {
     #[cfg(not(target_family = "wasm"))]
-    Filesystem { path: PathBuf },
+    Filesystem { path: String },
     #[cfg(target_family = "wasm")]
     LocalStorage { key: String },
     #[cfg(target_family = "wasm")]
@@ -19,6 +21,7 @@ impl Storage {
         match self {
             #[cfg(not(target_family = "wasm"))]
             Storage::Filesystem { path } => {
+                let path = Path::new(path);
                 if let Some(parent) = path.parent() {
                     std::fs::create_dir_all(parent)?;
                 }
@@ -35,7 +38,7 @@ impl Storage {
     pub fn occupied(&self) -> bool {
         match self {
             #[cfg(not(target_family = "wasm"))]
-            Storage::Filesystem { path } => path.exists(),
+            Storage::Filesystem { path } => Path::new(path).exists(),
             #[cfg(target_family = "wasm")]
             Storage::LocalStorage { key } => {
                 use gloo_storage::{
@@ -268,11 +271,7 @@ impl Display for Storage {
         match self {
             #[cfg(not(target_family = "wasm"))]
             Storage::Filesystem { path } => {
-                if let Some(path) = path.to_str() {
-                    write!(f, "{}", path)
-                } else {
-                    write!(f, "{:?}", path)
-                }
+                write!(f, "{}", path)
             },
             #[cfg(target_family = "wasm")]
             Storage::LocalStorage { key } => {
